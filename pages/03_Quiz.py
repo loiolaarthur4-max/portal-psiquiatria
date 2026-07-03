@@ -2,41 +2,41 @@ import streamlit as st
 import json
 import os
 
-st.title("⚡ Quiz: Os Rumos da Psiquiatria")
+st.title("📚 Portal de Psiquiatria - 500 Questões")
 
+# Localiza o arquivo na raiz
 caminho_raiz = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 caminho_arquivo = os.path.join(caminho_raiz, 'banco_questoes.json')
 
-with open(caminho_arquivo, "r", encoding="utf-8") as f:
-    questoes = json.load(f)
+@st.cache_data
+def carregar_dados():
+    with open(caminho_arquivo, "r", encoding="utf-8") as f:
+        return json.load(f)
 
-# Verifica se o banco não está vazio
-if not questoes:
-    st.warning("O banco de questões está vazio.")
-    st.stop()
+questoes = carregar_dados()
 
-# Inicializa o estado
 if 'idx' not in st.session_state: st.session_state.idx = 0
-
 idx = st.session_state.idx
-q = questoes[idx]
 
-st.subheader(f"Questão {idx + 1}")
+q = questoes[idx]
+st.subheader(f"Questão {idx + 1} de {len(questoes)}")
 st.write(q["pergunta"])
 
-# Exibe as opções
-escolha = st.radio("Escolha uma opção:", list(q["opcoes"].values()), key="opcao_selecionada")
+opcoes_formatadas = [f"{k} - {v}" for k, v in q["opcoes"].items()]
+escolha = st.radio("Selecione:", opcoes_formatadas, key=f"q_{idx}")
 
-if st.button("Confirmar Resposta"):
-    # Encontra a chave (A, B, C...) da opção escolhida
-    resposta_usuario = [k for k, v in q["opcoes"].items() if v == escolha][0]
-    
-    if resposta_usuario == q["correta"]:
-        st.success("✅ Correto!")
+if st.button("Responder"):
+    if escolha.startswith(q["correta"]):
+        st.success("Correto!")
     else:
-        st.error(f"❌ Incorreto. A correta seria: {q['correta']}")
+        st.error(f"Errado! A correta era {q['correta']}")
 
-if st.button("Próxima Questão ➡️"):
-    if idx < len(questoes) - 1:
+col1, col2 = st.columns(2)
+with col1:
+    if st.button("Anterior") and idx > 0:
+        st.session_state.idx -= 1
+        st.rerun()
+with col2:
+    if st.button("Próxima") and idx < len(questoes) - 1:
         st.session_state.idx += 1
         st.rerun()
