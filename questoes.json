@@ -1,5 +1,13 @@
 [
-    {"pergunta": "O que é Dopamina?", "resposta": "Neurotransmissor do sistema de recompensa."},
-    {"pergunta": "O que é Lítio?", "resposta": "Estabilizador do humor."},
-    {"pergunta": "O que é uma alucinação?", "resposta": "Percepção sensorial sem objeto real."}
+    {
+        "pergunta": "Qual é a premissa central da abordagem RDoC?",
+        "opcoes": {
+            "A": "Focar apenas na sintomatologia descritiva.",
+            "B": "Integrar dados genéticos e neurais.",
+            "C": "Utilizar apenas a terapia cognitiva.",
+            "D": "Ignorar a base biológica.",
+            "E": "Basear-se apenas em exames de sangue."
+        },
+        "correta": "B"
+    }
 ]
