@@ -1,10 +1,11 @@
-import streamlit as st
+import os
 import json
+import streamlit as st
 
-st.title("⚡ Quiz: Os Rumos da Psiquiatria")
+# Isso diz ao Python para buscar o arquivo na pasta acima (raiz)
+caminho_arquivo = os.path.join(os.path.dirname(__file__), '..', 'banco_questoes.json')
 
-# Carrega o banco de questões
-with open("banco_questoes.json", "r", encoding="utf-8") as f:
+with open(caminho_arquivo, "r", encoding="utf-8") as f:
     questoes = json.load(f)
 
 if 'idx' not in st.session_state: 
