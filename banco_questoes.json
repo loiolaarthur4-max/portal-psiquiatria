@@ -1,13 +1,28 @@
-[
-    {
-        "pergunta": "Qual é a premissa central da abordagem RDoC?",
-        "opcoes": {
-            "A": "Focar apenas na sintomatologia descritiva.",
-            "B": "Integrar dados genéticos e neurais.",
-            "C": "Utilizar apenas a terapia cognitiva.",
-            "D": "Ignorar a base biológica.",
-            "E": "Basear-se apenas em exames de sangue."
-        },
-        "correta": "B"
-    }
-]
+import json
+import random
+
+def gerar_questoes(n=500):
+    temas = ["RDoC", "Neuroplasticidade", "Psiquiatria Digital", "Neuroimunologia", "Psicodélicos", "Psiquiatria de Precisão"]
+    banco = []
+    
+    for i in range(1, n + 1):
+        tema = random.choice(temas)
+        questao = {
+            "id": i,
+            "pergunta": f"({tema}) Qual das alternativas melhor descreve o avanço atual em {tema} na psiquiatria contemporânea (Questão {i})?",
+            "opcoes": {
+                "A": "Abordagem baseada exclusivamente em manuais diagnósticos tradicionais.",
+                "B": "Integração de biomarcadores e circuitos neurais para diagnósticos mais precisos.",
+                "C": "Redução da importância da neurobiologia em favor da teoria puramente psicanalítica.",
+                "D": "Uso limitado de tecnologia de informação para o manejo de dados do paciente.",
+                "E": "Foco único no tratamento medicamentoso sem auxílio de terapias digitais."
+            },
+            "correta": "B"
+        }
+        banco.append(questao)
+    
+    with open('banco_questoes.json', 'w', encoding='utf-8') as f:
+        json.dump(banco, f, ensure_ascii=False, indent=4)
+    print(f"Arquivo 'banco_questoes.json' com {n} questões criado com sucesso!")
+
+gerar_questoes(500)
