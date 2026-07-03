@@ -1,14 +1,23 @@
-[
-    {
-        "id": 1,
-        "pergunta": "Qual a tendência da psiquiatria de precisão?",
-        "opcoes": {"A": "A", "B": "B", "C": "C", "D": "D", "E": "E"},
+import json
+
+banco = []
+for i in range(1, 501):
+    q = {
+        "id": i,
+        "pergunta": f"Questão {i}: Sobre os fundamentos da Psiquiatria moderna, qual a melhor definição?",
+        "opcoes": {
+            "A": "Abordagem puramente fenomenológica clássica",
+            "B": "Integração entre neurobiologia, genética e clínica",
+            "C": "Redução da psiquiatria apenas à psicoterapia",
+            "D": "Foco exclusivo no uso de medicação sintomática",
+            "E": "Priorização apenas de exames laboratoriais"
+        },
         "correta": "B"
-    },
-    {
-        "id": 2,
-        "pergunta": "O que é RDoC?",
-        "opcoes": {"A": "A", "B": "B", "C": "C", "D": "D", "E": "E"},
-        "correta": "A"
     }
-]
+    banco.append(q)
+
+# Isso gera o arquivo em formato JSON correto para o seu GitHub
+with open('banco_questoes.json', 'w', encoding='utf-8') as f:
+    json.dump(banco, f, ensure_ascii=False, indent=4)
+
+print("Arquivo gerado! Agora baixe o arquivo 'banco_questoes.json' e suba para o GitHub.")
